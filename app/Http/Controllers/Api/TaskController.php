@@ -12,11 +12,18 @@ use Illuminate\Http\Request;
  */
 class TaskController extends Controller
 {
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     public function index()
     {
         return Task::all();
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function create(Request $request)
     {
         $data = $request->all();
