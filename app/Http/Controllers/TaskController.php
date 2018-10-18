@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Task;
+
 /**
  * Class TaskController
  * @package App\Http\Controllers
@@ -13,7 +15,10 @@ class TaskController extends Controller
      */
     public function main()
     {
-        return view('pages.main');
+        $tasks = Task::all();
+        return view('pages.main',[
+            'tasks' => $tasks
+        ]);
     }
 
     /**
