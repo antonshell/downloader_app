@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\DownloadResource;
 use App\Task;
 use Illuminate\Console\Command;
 
@@ -44,8 +45,9 @@ class CreateTask extends Command
         ];
 
         $task = Task::create($data);
-        $id = $task->getKey();
+        DownloadResource::dispatch($task);
 
+        $id = $task->getKey();
         $this->info("Created task #$id");
     }
 }

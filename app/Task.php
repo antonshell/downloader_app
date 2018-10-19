@@ -4,6 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Task
+ * @package App
+ *
+ * @property int id,
+ * @property string url,
+ * @property string local_path,
+ * @property string status,
+ * @property int created_at,
+ * @property int updated_at,
+ */
 class Task extends Model
 {
     const STATUS_PENDING = 'pending';
@@ -13,9 +24,6 @@ class Task extends Model
     const STATUS_COMPLETE = 'complete';
 
     const STATUS_ERROR = 'error';
-
-    //pending/downloading/complete/error
-
 
     /**
      * The attributes that are mass assignable.

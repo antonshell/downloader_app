@@ -39,6 +39,11 @@ class ListTasks extends Command
     public function handle()
     {
         $tasks = Task::all();
+
+        if(count($tasks) == 0){
+            $this->info("No tasks available");
+        }
+
         foreach ($tasks as $task){
             $id = $task->getKey();
             $status = $task->status;

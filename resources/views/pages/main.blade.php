@@ -20,12 +20,20 @@
                         <th>Updated At</th>
                     </tr>
 
+                    @if(count($tasks) == 0)
+                        <tr>
+                            <td colspan="6">No tasks available</td>
+                        </tr>
+                    @endif
+
                     @foreach ($tasks as $task)
                         <tr>
                             <td>{{ $task->id }}</td>
                             <td>{{ $task->url }}</td>
                             <td>{{ $task->status }}</td>
-                            <td>{{ $task->local_path }}</td>
+                            <td>
+                                <a href="{{ $task->local_path }}">Download</a>
+                            </td>
                             <td>{{ $task->created_at }}</td>
                             <td>{{ $task->updated_at }}</td>
                         </tr>
