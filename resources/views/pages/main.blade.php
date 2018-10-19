@@ -32,6 +32,21 @@
                     @endforeach
                 </table>
 
+                <div class="card my-4">
+                    <h5 class="card-header">Enqueue task:</h5>
+                    <div class="card-body">
+                        <form method="post" action="">
+
+                            @csrf
+
+                            <div class="form-group">
+                                <input type="text" name="url" class="form-control">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
             </div>
 
         </div>

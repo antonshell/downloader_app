@@ -11,9 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('enqueue', 'TaskController@enqueue');
-Route::get('main', 'TaskController@main');
+Route::get('/', 'TaskController@main');
+Route::post('/', 'TaskController@main');
