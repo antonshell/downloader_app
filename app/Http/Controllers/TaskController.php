@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\DownloadResource;
+use App\Repositories\TaskRepository;
 use App\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -14,18 +15,30 @@ use Illuminate\Support\Facades\Storage;
 class TaskController extends Controller
 {
     /**
+     * @var TaskRepository
+     */
+    private $taskRepository;
+
+    /**
+     * TaskController constructor.
+     * @param TaskRepository $taskRepository
+     */
+    public function __construct(
+        TaskRepository $taskRepository
+    )
+    {
+        $this->taskRepository = $taskRepository;
+    }
+
+    /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function main(Request $request)
     {
         if($request->method() == "POST"){
-            $data = $request->all();
-            $data['status'] = Task::STATUS_PENDING;
-            $data['local_path'] = '';
-            $task = Task::create($data);
-
+            $url = $request->get('url');
+            $task = $this->taskRepository->createFromUrl($url);
             DownloadResource::dispatch($task);
-
             return redirect('/');
         }
 

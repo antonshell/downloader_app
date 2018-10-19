@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Jobs\DownloadResource;
+use App\Repositories\TaskRepository;
 use App\Task;
 use Illuminate\Console\Command;
 
@@ -23,12 +24,20 @@ class CreateTask extends Command
     protected $description = 'Create task';
 
     /**
+     * @var TaskRepository
+     */
+    private $taskRepository;
+
+    /**
      * Create a new command instance.
      *
-     * @return void
+     * @param TaskRepository $taskRepository
      */
-    public function __construct()
+    public function __construct(
+        TaskRepository $taskRepository
+    )
     {
+        $this->taskRepository = $taskRepository;
         parent::__construct();
     }
 
@@ -38,13 +47,7 @@ class CreateTask extends Command
     public function handle()
     {
         $url = $this->argument('url');
-        $data = [
-            'url' => $url,
-            'status' => Task::STATUS_PENDING,
-            'local_path' => '',
-        ];
-
-        $task = Task::create($data);
+        $task = $this->taskRepository->createFromUrl($url);
         DownloadResource::dispatch($task);
 
         $id = $task->getKey();

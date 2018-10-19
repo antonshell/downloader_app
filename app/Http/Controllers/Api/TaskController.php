@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\DownloadResource;
+use App\Repositories\TaskRepository;
 use App\Task;
 use Illuminate\Http\Request;
 
@@ -13,6 +14,22 @@ use Illuminate\Http\Request;
  */
 class TaskController extends Controller
 {
+    /**
+     * @var TaskRepository
+     */
+    private $taskRepository;
+
+    /**
+     * TaskController constructor.
+     * @param TaskRepository $taskRepository
+     */
+    public function __construct(
+        TaskRepository $taskRepository
+    )
+    {
+        $this->taskRepository = $taskRepository;
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
@@ -27,13 +44,9 @@ class TaskController extends Controller
      */
     public function create(Request $request)
     {
-        $data = $request->all();
-        $data['status'] = Task::STATUS_PENDING;
-        $data['local_path'] = '';
-
-        $task = Task::create($data);
+        $url = $request->get('url');
+        $task = $this->taskRepository->createFromUrl($url);
         DownloadResource::dispatch($task);
-
         return $task;
     }
 
