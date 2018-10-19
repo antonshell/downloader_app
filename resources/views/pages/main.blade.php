@@ -32,7 +32,9 @@
                             <td>{{ $task->url }}</td>
                             <td>{{ $task->status }}</td>
                             <td>
-                                <a href="{{ $task->local_path }}">Download</a>
+                                @if($task->local_path)
+                                    <a href="{{ $task->local_path }}">Download</a>
+                                @endif
                             </td>
                             <td>{{ $task->created_at }}</td>
                             <td>{{ $task->updated_at }}</td>

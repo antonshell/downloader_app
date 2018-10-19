@@ -10,9 +10,15 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * Class DownloadResource
+ * @package App\Jobs
+ */
 class DownloadResource implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    const MAX_ATTEMPTS = 1;
 
     /**
      * @var Task
@@ -37,14 +43,22 @@ class DownloadResource implements ShouldQueue
     public function handle()
     {
         $task = $this->task;
-
         $task->status = Task::STATUS_DOWNLOADING;
         $task->save();
-        
-        $filePath = $this->downloadFile($task);
-        $task->local_path = Storage::url($filePath);
-        $task->status = Task::STATUS_COMPLETE;
-        $task->save();
+
+        try{
+            $filePath = $this->downloadFile($task);
+
+            $task->local_path = Storage::url($filePath);
+            $task->status = Task::STATUS_COMPLETE;
+            $task->save();
+        }
+        catch (\Throwable $t){
+            $task->status = Task::STATUS_ERROR;
+            $task->save();
+
+            $this->fail();
+        }
     }
 
     /**
@@ -63,9 +77,7 @@ class DownloadResource implements ShouldQueue
 
         $content = file_get_contents($url);
         $filePath = 'downloads/' . $fileName;
-
         Storage::disk('public')->put($filePath, $content);
-
         return $filePath;
     }
 }
