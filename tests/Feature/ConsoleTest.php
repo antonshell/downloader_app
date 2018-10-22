@@ -21,7 +21,7 @@ class ConsoleTest extends TestCase
      */
     public function testCreateTask()
     {
-        $url = 'http://velocrunch.ru/gpx/sardegna-2017/full.gpx?time=' . time();
+        $url = 'http://demo.antonshell.me/files/sardegna.gpx?time=' . time();
         $this->artisan('task:create', ['url' => $url])
             ->expectsOutput('Created task #' . TasksTableSeeder::NEW_ID)
             ->assertExitCode(0);
@@ -35,7 +35,7 @@ class ConsoleTest extends TestCase
         $test = $this->artisan('task:list');
 
         for ($i = 1; $i <= TasksTableSeeder::TOTAL_COUNT; $i++){
-            $test->expectsOutput("Task #$i - pending - http://velocrunch.ru/gpx/sardegna-2017/full.gpx?seed=$i");
+            $test->expectsOutput("Task #$i - pending - http://demo.antonshell.me/files/sardegna.gpx?seed=$i");
         }
 
         $test->assertExitCode(0);

@@ -45,7 +45,7 @@ curl -X POST \
   -H 'Postman-Token: 40fc89b4-09c9-4f5d-8b67-2dd6527fc3e7' \
   -H 'cache-control: no-cache' \
   -d '{
-    "url": "http://velocrunch.ru/gpx/sardegna-2017/full.gpx"
+    "url": "http://demo.antonshell.me/files/sardegna.gpx"
 }'
 ```
 
@@ -64,7 +64,7 @@ curl -X GET \
 1 . Create task
 
 ```
-php artisan task:create http://velocrunch.ru/gpx/sardegna-2017/full.gpx
+php artisan task:create http://demo.antonshell.me/files/sardegna.gpx
 ```
 
 2 . Show tasks  
@@ -90,7 +90,7 @@ http://127.0.0.1:8000
 3 . Add task with existing url. For example:
 
 ```
-http://velocrunch.ru/gpx/sardegna-2017/full.gpx
+http://demo.antonshell.me/files/sardegna.gpx
 ```
 
 ## Queue

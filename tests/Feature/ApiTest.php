@@ -36,7 +36,7 @@ class ApiTest extends TestCase
      */
     public function testCreateTask()
     {
-        $url = 'http://velocrunch.ru/gpx/sardegna-2017/full.gpx?time=' . time();
+        $url = 'http://demo.antonshell.me/files/sardegna.gpx?time=' . time();
         $response = $this->json('POST', '/api/tasks', ['url' => $url]);
         $response
             ->assertStatus(201)

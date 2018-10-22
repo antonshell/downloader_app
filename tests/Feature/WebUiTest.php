@@ -34,7 +34,7 @@ class WebUiTest extends TestCase
     }
 
     public function testForm(){
-        $url = 'http://velocrunch.ru/gpx/sardegna-2017/full.gpx?time=' . time();
+        $url = 'http://demo.antonshell.me/files/sardegna.gpx?time=' . time();
         $response = $this->post('/', [
             'url' => $url,
         ]);

@@ -27,7 +27,7 @@ class TaskRepositoryTest extends TestCase
     public function testExample()
     {
         $repository = new TaskRepository();
-        $url = 'http://velocrunch.ru/gpx/sardegna-2017/full.gpx?time=' . time();
+        $url = 'http://demo.antonshell.me/files/sardegna.gpx?time=' . time();
         $model = $repository->createFromUrl($url);
         $this->assertEquals(TasksTableSeeder::NEW_ID, $model->id);
         $this->assertEquals($url, $model->url);
