@@ -100,3 +100,11 @@ http://velocrunch.ru/gpx/sardegna-2017/full.gpx
 ```
 php artisan queue:work
 ```
+
+## Testing:
+
+Run all tests:
+
+```
+vendor/bin/phpunit
+```
