@@ -2,36 +2,54 @@
 
 Url downloader. Accept tasks for download resources by url.
 Accept tasks via Rest, Web and Console.
-Test project. Build with Laravel 5.7.
+Test project. Build with Laravel 5.7, Mysql.
+Tested on Mac OS High Sierra.
 
 Here is [Specification](docs/specification.md)
 
-## Install
+## Install from archive
 
-1 . Clone repository
-
-```
-git clone ...
-```
-
-2 . Install dependencies.
+1 . Unzip archive
 
 ```
-composer install
-npm install
+unzip downloader_app.zip
 ```
 
-3 . Configure database settings
+2 . Create database
 
 ```
-cp .env.example .env
-nano .env
+CREATE DATABASE downloader_app CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE downloader_app_testing CHARACTER SET utf8 COLLATE utf8_general_ci;
+```
+
+3 . Configure db connection - edit ```.env``` file
+
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=downloader_app
+DB_USERNAME=root
+DB_PASSWORD=password
 ```
 
 4 . Apply migrations
 
 ```
 php artisan migrate
+```
+
+5 . Run server
+
+```
+php artisan serve
+```
+ 
+6 . Try it
+
+```
+php artisan task:create http://demo.antonshell.me/files/sardegna.gpx
+php artisan queue:work
 ```
 
 ## Usage - REST
