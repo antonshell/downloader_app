@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\DB;
 
 class TasksTableSeeder extends Seeder
 {
+    const TOTAL_COUNT = 3;
+
+    const NEW_ID = 4;
+
     private $table = 'tasks';
 
     /**

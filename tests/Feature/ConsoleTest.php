@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use TasksTableSeeder;
 use Tests\TestCase;
 
 class ConsoleTest extends TestCase
@@ -22,7 +23,7 @@ class ConsoleTest extends TestCase
     {
         $url = 'http://velocrunch.ru/gpx/sardegna-2017/full.gpx?time=' . time();
         $this->artisan('task:create', ['url' => $url])
-            ->expectsOutput('Created task #4')
+            ->expectsOutput('Created task #' . TasksTableSeeder::NEW_ID)
             ->assertExitCode(0);
     }
 
@@ -31,10 +32,12 @@ class ConsoleTest extends TestCase
      */
     public function testGetTasks()
     {
-        $this->artisan('task:list')
-            ->expectsOutput('Task #1 - pending - http://velocrunch.ru/gpx/sardegna-2017/full.gpx?seed=1')
-            ->expectsOutput('Task #2 - pending - http://velocrunch.ru/gpx/sardegna-2017/full.gpx?seed=2')
-            ->expectsOutput('Task #3 - pending - http://velocrunch.ru/gpx/sardegna-2017/full.gpx?seed=3')
-            ->assertExitCode(0);
+        $test = $this->artisan('task:list');
+
+        for ($i = 1; $i <= TasksTableSeeder::TOTAL_COUNT; $i++){
+            $test->expectsOutput("Task #$i - pending - http://velocrunch.ru/gpx/sardegna-2017/full.gpx?seed=$i");
+        }
+
+        $test->assertExitCode(0);
     }
 }

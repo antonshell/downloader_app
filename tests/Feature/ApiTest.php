@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use TasksTableSeeder;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -26,7 +27,7 @@ class ApiTest extends TestCase
         $content = json_decode($content, true);
 
         $response->assertStatus(200);
-        $this->assertEquals(3, count($content));
+        $this->assertEquals(TasksTableSeeder::TOTAL_COUNT, count($content));
         $this->assertEquals(1, $content[0]['id']);
     }
 
