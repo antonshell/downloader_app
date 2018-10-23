@@ -9,20 +9,31 @@ Here is [Specification](docs/specification.md)
 
 ## Install from archive
 
-1 . Unzip archive
+1 . Clone repository
 
 ```
-unzip downloader_app.zip
+git clone https://github.com/antonshell/downloader_app.git
 ```
 
-2 . Create database
+2 . Install dependencies
+
+```
+composer install
+```
+
+3 . Create database
 
 ```
 CREATE DATABASE downloader_app CHARACTER SET utf8 COLLATE utf8_general_ci;
 CREATE DATABASE downloader_app_testing CHARACTER SET utf8 COLLATE utf8_general_ci;
 ```
 
-3 . Configure db connection - edit ```.env``` file
+4 . Configure db connection - edit ```.env```
+
+```
+cp .env.example .env
+cp .env.example .env.testing
+```
 
 ```
 DB_CONNECTION=mysql
@@ -33,19 +44,19 @@ DB_USERNAME=root
 DB_PASSWORD=password
 ```
 
-4 . Apply migrations
+5 . Apply migrations
 
 ```
 php artisan migrate
 ```
 
-5 . Run server
+6 . Run server
 
 ```
 php artisan serve
 ```
  
-6 . Try it
+7 . Try it
 
 ```
 php artisan task:create http://demo.antonshell.me/files/sardegna.gpx
